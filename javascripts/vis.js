@@ -2,7 +2,8 @@ Papa.parse("https://raw.githubusercontent.com/AvikaN/3d-comet-vis/master/data/co
 	download: true,
 	complete: function(results) {
 	//create scene after data loads
-		main(results); 
+		console.log(results);
+		//main(results); 
 	}
 });
 
@@ -26,13 +27,11 @@ function main(results){
 			        linewidth : 2
 			    })
 				var geometry = new THREE.Geometry(); 
-				for(var i = 1; i < data.length - 2; i++){
+				for(var i = 1; i < data.length; i++){
 					geometry.vertices.push(new THREE.Vector3(data[i][0] * 5 , data[i][1] * 5 , data[i][2] * 2));
 				}
 
-				console.log(data);
-				
-			    var line = new THREE.Line(geometry, material);
+				var line = new THREE.Line(geometry, material);
 			    scene.add(line);
 				// renderer
 				renderer = new THREE.WebGLRenderer( { antialias: false } );
