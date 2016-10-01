@@ -24,23 +24,33 @@ function main(results){
 				// world
 				scene = new THREE.Scene();
 				//use one basic line material 
-				var material = new THREE.LineDashedMaterial({ color: 0xffffff, dashSize: 0.5, gapSize: 2, linewidth: 2 });
-
-				var geometry = new THREE.Geometry(); 
+				//var material = new THREE.LineDashedMaterial({ color: 0xffffff, dashSize: 0.5, gapSize: 2, linewidth: 2 });
+				var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+				var geometry = new THREE.SphereGeometry(0.5, 18, 6);
+				//var geometry = new THREE.Geometry(); 
 				 //need a seperate geometry for each line
 				for(var i = 1; i < data.length; i++){
 					var x = data[i][0]; 
 					var y = data[i][1]; 
 					var z = data[i][2]; 
 					if (x === "-" && y === "-" && z === "-"){
+						//create a sphere at x,y,z and add it to the scene
+						// var mesh = new THREE.Mesh( geometry, material );
+						// mesh.position  =  new THREE.Vector3(x, y, z);
+						// scene.add(mesh);
 						//geometries.push(geometry);
 						//console.log(geometry);
-						geometry.computeLineDistances(); 
-						scene.add(new THREE.Line(geometry, material));
-						geometry = new THREE.Geometry();
+						//geometry.computeLineDistances(); 
+						//scene.add(new THREE.Line(geometry, material));
+						//geometry = new THREE.Geometry();
 					}
 					else{
-						geometry.vertices.push(new THREE.Vector3(x * 10, y * 10, z * 2 ));
+						console.log(0);
+						var mesh = new THREE.Mesh( geometry, material );
+						mesh.position.x = x * 10 ; 
+						mesh.position.y = y * 10; 
+						mesh.position.z = z; 
+						scene.add(mesh);
 					}
 				}
 
