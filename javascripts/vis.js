@@ -2,8 +2,8 @@ Papa.parse("https://raw.githubusercontent.com/AvikaN/3d-comet-vis/master/data/co
 	download: true,
 	complete: function(results) {
 	//create scene after data loads
-		console.log(results);
-		//main(results); 
+		//console.log(results);
+		main(results); 
 	}
 });
 
@@ -13,6 +13,7 @@ function main(results){
 	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var container;
 			var camera, controls, scene, renderer;
+			//var geometries = [];
 			var cross;
 			init();
 			animate();
@@ -22,17 +23,32 @@ function main(results){
 				initTrackBall();
 				// world
 				scene = new THREE.Scene();
+				//use one basic line material 
 				var material = new THREE.LineBasicMaterial({
 			        color: 0xffffff, 
-			        linewidth : 2
-			    })
+			        linewidth : 0.5
+			    });
+
+			    //need a seperate geometry for each line
 				var geometry = new THREE.Geometry(); 
+				 //need a seperate geometry for each line
 				for(var i = 1; i < data.length; i++){
-					geometry.vertices.push(new THREE.Vector3(data[i][0] * 5 , data[i][1] * 5 , data[i][2] * 2));
+					var x = data[i][0]; 
+					var y = data[i][1]; 
+					var z = data[i][2]; 
+					if (x === "-" && y === "-" && z === "-"){
+						//geometries.push(geometry);
+						//console.log(geometry);
+						scene.add(new THREE.Line(geometry, material));
+						geometry = new THREE.Geometry();
+					}
+					else{
+						geometry.vertices.push(new THREE.Vector3(x * 10, y * 10, z * 2 ));
+					}
 				}
 
-				var line = new THREE.Line(geometry, material);
-			    scene.add(line);
+				//var line = new THREE.Line(geometry, material);
+			   // scene.add(line);
 				// renderer
 				renderer = new THREE.WebGLRenderer( { antialias: false } );
 				renderer.setPixelRatio( window.devicePixelRatio );
