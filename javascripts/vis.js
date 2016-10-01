@@ -30,22 +30,24 @@ function main(results){
 			    });
 
 			    //need a seperate geometry for each line
+			    //don't do thism it's not informative + there's no scaling for comparison 
+			    //map the solar system and their orbits 
 				var geometry = new THREE.Geometry(); 
 				 //need a seperate geometry for each line
-				for(var i = 1; i < data.length; i++){
-					var x = data[i][0]; 
-					var y = data[i][1]; 
-					var z = data[i][2]; 
-					if (x === "-" && y === "-" && z === "-"){
-						//geometries.push(geometry);
-						//console.log(geometry);
-						scene.add(new THREE.Line(geometry, material));
-						geometry = new THREE.Geometry();
-					}
-					else{
-						geometry.vertices.push(new THREE.Vector3(x * 10, y * 10, z * 2 ));
-					}
-				}
+				// for(var i = 1; i < data.length; i++){
+				// 	var x = data[i][0]; 
+				// 	var y = data[i][1]; 
+				// 	var z = data[i][2]; 
+				// 	if (x === "-" && y === "-" && z === "-"){
+				// 		//geometries.push(geometry);
+				// 		//console.log(geometry);
+				// 		scene.add(new THREE.Line(geometry, material));
+				// 		geometry = new THREE.Geometry();
+				// 	}
+				// 	else{
+				// 		geometry.vertices.push(new THREE.Vector3(x * 10, y * 10, z * 2 ));
+				// 	}
+				// }
 
 				//var line = new THREE.Line(geometry, material);
 			   // scene.add(line);
@@ -87,7 +89,6 @@ function main(results){
 							controls.keys = [ 65, 83, 68 ];
 							controls.addEventListener( 'change', render );
 			}
-
 }
 
 
